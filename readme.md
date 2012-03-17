@@ -9,6 +9,11 @@ Allow to change line endings from the command palete.
 
 Allow to change line endings from the "tab size" menu of the statusbar.
 
+Todo
+------------------
+
+Show mixed line endings.
+
 Installation
 ------------------
 
