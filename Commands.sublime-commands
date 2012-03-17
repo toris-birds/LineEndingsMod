@@ -1,0 +1,29 @@
+[
+		{
+				"caption": "-"
+		},
+		{
+				"args": {
+						"type": "cr"
+				},
+				"caption": "Line Ending: Mac OS 9",
+				"checkbox": true,
+				"command": "set_line_ending"
+		},
+		{
+				"args": {
+						"type": "windows"
+				},
+				"caption": "Line Ending: Windows",
+				"checkbox": true,
+				"command": "set_line_ending"
+		},
+		{
+				"args": {
+						"type": "unix"
+				},
+				"caption": "Line Ending: Unix",
+				"checkbox": true,
+				"command": "set_line_ending"
+		}
+]
