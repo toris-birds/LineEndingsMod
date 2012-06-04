@@ -1,15 +1,16 @@
 Description
 ------------------
 
-Provides line endings shortcuts for Sublime Text 2. See: http://www.sublimetext.com/
+Provides line endings and convert indentation shortcuts for Sublime Text 2. See: http://www.sublimetext.com/
 
-Allows to show the current "line ending" on status bar.
+Allows to:
 
-Allow to change line endings from the command palette.
-
-Allow to change line endings from the "tab size" menu of the statusbar.
-
-Allow to display an alert when the line_ending is not some you expect.
+* Show the current "line ending" on status bar.
+* Change line endings from the command palette.
+* Change line endings from the "tab size" menu of the statusbar.
+* Display an alert when the line_ending is not some you expect.
+* Convert indentation to spaces or tabs for all views on current window
+* Convert line endings for all views on current window
 
 Todo
 ------------------

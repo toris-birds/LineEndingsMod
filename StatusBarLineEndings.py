@@ -3,8 +3,8 @@ import sublime, sublime_plugin
 s = sublime.load_settings('LineEndings.sublime-settings')
 class Pref:
 	def load(self):
-		Pref.show_line_endings_on_status_bar 					= s.get('show_line_endings_on_status_bar', True)
-		Pref.alert_when_line_ending_is 								= s.get('alert_when_line_ending_is', [])
+		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
+		Pref.alert_when_line_ending_is                = s.get('alert_when_line_ending_is', [])
 
 Pref = Pref()
 Pref.load()
@@ -29,3 +29,24 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 			else:
 				view.set_status('line_endings', view.line_endings())
 				sublime.set_timeout(lambda:view.set_status('line_endings', view.line_endings()), 400)
+
+class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
+
+	def run(self, view, type):
+		for view in sublime.active_window().views():
+			view.run_command('set_line_ending', {"type":type})
+
+	def is_enabled(self):
+		return len(sublime.active_window().views())
+
+class ConvertIndentationWindowCommand(sublime_plugin.TextCommand):
+
+	def run(self, view, type):
+		for view in sublime.active_window().views():
+			if type == 'spaces':
+				view.run_command('expand_tabs', {"set_translate_tabs":True})
+			else:
+				view.run_command('unexpand_tabs', {"set_translate_tabs":True})
+
+	def is_enabled(self):
+		return len(sublime.active_window().views())
