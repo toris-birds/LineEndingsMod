@@ -3,8 +3,8 @@ import sublime, sublime_plugin
 s = sublime.load_settings('LineEndings.sublime-settings')
 class Pref:
 	def load(self):
-		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
-		Pref.alert_when_line_ending_is                = s.get('alert_when_line_ending_is', [])
+		Pref.show_line_endings_on_status_bar = s.get('show_line_endings_on_status_bar', True)
+		Pref.alert_when_line_ending_is       = s.get('alert_when_line_ending_is', [])
 
 Pref = Pref()
 Pref.load()
@@ -19,6 +19,10 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 			self.show(view)
 
 	def on_activated(self, view):
+		if Pref.show_line_endings_on_status_bar:
+			self.show(view)
+
+	def on_post_save(self, view):
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
 
