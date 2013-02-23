@@ -25,6 +25,10 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
 
+	def on_post_save(self, view):
+		if Pref.show_line_endings_on_status_bar:
+			self.show(view)
+
 	def show(self, view):
 		if view is not None:
 			if view.is_loading():
