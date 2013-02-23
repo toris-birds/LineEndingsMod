@@ -22,10 +22,6 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
 
-	def on_modified(self, view):
-		if Pref.show_line_endings_on_status_bar:
-			self.show(view)
-
 	def on_post_save(self, view):
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
@@ -35,8 +31,8 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 			if view.is_loading():
 				sublime.set_timeout(lambda:self.show(view), 100)
 			else:
-				view.set_status('line_endings', view.encoding() + ', ' + view.line_endings())
-				sublime.set_timeout(lambda:view.set_status('line_endings', view.encoding() + ', ' + view.line_endings()), 400)
+				view.set_status('line_endings', view.line_endings())
+				sublime.set_timeout(lambda:view.set_status('line_endings', view.line_endings()), 400)
 
 class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
 
