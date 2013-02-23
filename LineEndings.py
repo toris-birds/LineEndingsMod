@@ -3,8 +3,8 @@ import sublime, sublime_plugin
 s = sublime.load_settings('LineEndings.sublime-settings')
 class Pref:
 	def load(self):
-		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
-		Pref.alert_when_line_ending_is                = s.get('alert_when_line_ending_is', [])
+		Pref.show_line_endings_on_status_bar = s.get('show_line_endings_on_status_bar', True)
+		Pref.alert_when_line_ending_is       = s.get('alert_when_line_ending_is', [])
 
 Pref = Pref()
 Pref.load()
@@ -22,13 +22,21 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
 
+	def on_modified(self, view):
+		if Pref.show_line_endings_on_status_bar:
+			self.show(view)
+
+	def on_post_save(self, view):
+		if Pref.show_line_endings_on_status_bar:
+			self.show(view)
+
 	def show(self, view):
 		if view is not None:
 			if view.is_loading():
 				sublime.set_timeout(lambda:self.show(view), 100)
 			else:
-				view.set_status('line_endings', view.line_endings())
-				sublime.set_timeout(lambda:view.set_status('line_endings', view.line_endings()), 400)
+				view.set_status('line_endings', view.encoding() + ', ' + view.line_endings())
+				sublime.set_timeout(lambda:view.set_status('line_endings', view.encoding() + ', ' + view.line_endings()), 400)
 
 class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
 
