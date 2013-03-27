@@ -1,15 +1,17 @@
 import sublime, sublime_plugin
 
-s = sublime.load_settings('LineEndings.sublime-settings')
+def plugin_loaded():
+	global s, Pref
+	s = sublime.load_settings('LineEndings.sublime-settings')
+	Pref = Pref()
+	Pref.load()
+	s.add_on_change('reload', lambda:Pref.load())
+
 class Pref:
 	def load(self):
 		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
 		Pref.alert_when_line_ending_is                = s.get('alert_when_line_ending_is', [])
 		Pref.auto_convert_line_endings_to             = s.get('auto_convert_line_endings_to', '')
-
-Pref = Pref()
-Pref.load()
-s.add_on_change('reload', lambda:Pref.load())
 
 class StatusBarLineEndings(sublime_plugin.EventListener):
 
