@@ -10,16 +10,16 @@ def plugin_loaded():
 class Pref:
 	def load(self):
 		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
-		Pref.alert_when_line_ending_is                = s.get('alert_when_line_ending_is', [])
+		Pref.alert_when_line_ending_is                = [s.lower() for s in s.get('alert_when_line_ending_is', [])]
 		Pref.auto_convert_line_endings_to             = s.get('auto_convert_line_endings_to', '')
 
 class StatusBarLineEndings(sublime_plugin.EventListener):
 
 	def on_load(self, view):
-		if view.line_endings() in Pref.alert_when_line_ending_is:
-			sublime.message_dialog(u''+view.line_endings()+' line endings detected on file:\n\n'+view.file_name());
-		if Pref.auto_convert_line_endings_to != '' and view.line_endings() != Pref.auto_convert_line_endings_to:
-			view.run_command('set_line_ending', {"type":Pref.auto_convert_line_endings_to})
+		if view.line_endings().lower() in Pref.alert_when_line_ending_is:
+			sublime.message_dialog(view.line_endings()+' line endings detected on file:\n\n'+view.file_name());
+		if Pref.auto_convert_line_endings_to != '' and view.line_endings().lower() != Pref.auto_convert_line_endings_to.lower():
+			view.set_line_endings(Pref.auto_convert_line_endings_to)
 		if Pref.show_line_endings_on_status_bar:
 			self.show(view)
 
@@ -42,12 +42,21 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
 
 	def run(self, view, type):
-		active_view = sublime.active_window().active_view()
 		for view in sublime.active_window().views():
-			sublime.active_window().focus_view(view);
-			view.run_command('set_line_ending', {"type":type})
+			view.set_line_endings(type)
 			view.set_status('line_endings', view.line_endings())
-		sublime.active_window().focus_view(active_view);
+		StatusBarLineEndings().on_load(sublime.active_window().active_view())
+
+	def is_enabled(self):
+		return len(sublime.active_window().views()) > 0
+
+class SetLineEndingViewCommand(sublime_plugin.TextCommand):
+
+	def run(self, view, type):
+		view = sublime.active_window().active_view()
+		view.set_line_endings(type)
+		view.set_status('line_endings', view.line_endings())
+		StatusBarLineEndings().on_load(view)
 
 	def is_enabled(self):
 		return len(sublime.active_window().views()) > 0
@@ -55,15 +64,12 @@ class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
 class ConvertIndentationWindowCommand(sublime_plugin.TextCommand):
 
 	def run(self, view, type):
-		active_view = sublime.active_window().active_view()
 		for view in sublime.active_window().views():
-			sublime.active_window().focus_view(view);
 			if type == 'spaces':
 				view.run_command('expand_tabs', {"set_translate_tabs":True})
 			else:
 				view.run_command('unexpand_tabs', {"set_translate_tabs":True})
-		sublime.active_window().focus_view(active_view);
-
+		StatusBarLineEndings().on_load(sublime.active_window().active_view())
 
 	def is_enabled(self):
 		return len(sublime.active_window().views()) > 0

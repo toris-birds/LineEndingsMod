@@ -16,12 +16,12 @@
                         "children":
                         [
                             {
-                                "command": "open_file", 
+                                "command": "open_file",
                                 "args": {"file": "${packages}/LineEndings/LineEndings.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
-                                "command": "open_file", 
+                                "command": "open_file",
                                 "args": {"file": "${packages}/User/LineEndings.sublime-settings"},
                                 "caption": "Settings – User"
                             },
