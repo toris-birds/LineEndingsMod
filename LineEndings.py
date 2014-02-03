@@ -18,35 +18,16 @@ class StatusBarLineEndings(sublime_plugin.EventListener):
 	def on_load(self, view):
 		if view.line_endings().lower() in Pref.alert_when_line_ending_is:
 			sublime.message_dialog(view.line_endings()+' line endings detected on file:\n\n'+view.file_name());
-		if Pref.show_line_endings_on_status_bar:
-			self.show(view)
-
-	def on_activated(self, view):
-		if Pref.show_line_endings_on_status_bar:
-			self.show(view)
 
 	def on_pre_save(self, view):
 		if Pref.auto_convert_line_endings_to != '' and view.line_endings().lower() != Pref.auto_convert_line_endings_to.lower():
 			view.set_line_endings(Pref.auto_convert_line_endings_to)
-
-	def on_post_save(self, view):
-		if Pref.show_line_endings_on_status_bar:
-			self.show(view)
-
-	def show(self, view):
-		if view is not None:
-			if view.is_loading():
-				sublime.set_timeout(lambda:self.show(view), 100)
-			else:
-				view.set_status('line_endings', view.line_endings())
-				sublime.set_timeout(lambda:view.set_status('line_endings', view.line_endings()), 400)
 
 class SetLineEndingWindowCommand(sublime_plugin.TextCommand):
 
 	def run(self, view, type):
 		for view in sublime.active_window().views():
 			view.set_line_endings(type)
-			view.set_status('line_endings', view.line_endings())
 		StatusBarLineEndings().on_load(sublime.active_window().active_view())
 
 	def is_enabled(self):
@@ -57,7 +38,6 @@ class SetLineEndingViewCommand(sublime_plugin.TextCommand):
 	def run(self, view, type):
 		view = sublime.active_window().active_view()
 		view.set_line_endings(type)
-		view.set_status('line_endings', view.line_endings())
 		StatusBarLineEndings().on_load(view)
 
 	def is_enabled(self):
