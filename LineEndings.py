@@ -1,11 +1,16 @@
 import sublime, sublime_plugin
+import os
+import threading
+
+Pref = {}
+s = {}
 
 def plugin_loaded():
 	global s, Pref
 	s = sublime.load_settings('LineEndings.sublime-settings')
 	Pref = Pref()
 	Pref.load()
-    s.clear_on_change('reload')
+	s.clear_on_change('reload')
 	s.add_on_change('reload', lambda:Pref.load())
 
 class Pref:
@@ -62,3 +67,45 @@ class ConvertIndentationWindowCommand(sublime_plugin.TextCommand):
 
 	def is_enabled(self):
 		return len(sublime.active_window().views()) > 0
+
+class GetLineEndingsProjectFilesCommand(sublime_plugin.TextCommand):
+
+	def run(self, edit):
+		GetLineEndingsProjectFilesThread().start()
+
+	def is_enabled(self):
+		return len(sublime.active_window().folders()) > 0
+
+class GetLineEndingsProjectFilesThread(threading.Thread):
+	def __init__(self):
+		threading.Thread.__init__(self)
+
+	def run(self):
+		folders = sublime.active_window().folders()
+		line_endings = []
+		for path in folders:
+			self.recurse(path, line_endings)
+		line_endings.sort()
+		view = sublime.active_window().new_file()
+		view.settings().set('word_wrap', False)
+		view.set_scratch(True)
+		view.run_command('insert', {'characters' : "\n".join(line_endings)})
+
+	def recurse(self, path, line_endings):
+		if os.path.isfile(path):
+			line_endings.append('"'+self.line_ending_file(path)+'" '+path)
+		elif not os.path.islink(path):
+			for content in os.listdir(path):
+				file = os.path.join(path, content)
+				if os.path.isfile(file):
+					line_endings.append('"'+self.line_ending_file(file)+'"  '+file)
+				elif not os.path.islink(file):
+					self.recurse(file, line_endings)
+
+	def line_ending_file(self, file):
+		try:
+			with open(file, 'r', newline='') as f:
+				f.readline()
+			return str(repr(f.newlines))
+		except:
+			return 'Unknown'
