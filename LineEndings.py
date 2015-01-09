@@ -16,7 +16,7 @@ def plugin_loaded():
 class Pref:
 	def load(self):
 		Pref.show_line_endings_on_status_bar          = s.get('show_line_endings_on_status_bar', True)
-		Pref.alert_when_line_ending_is                = [s.lower() for s in s.get('alert_when_line_ending_is', [])]
+		Pref.alert_when_line_ending_is                = [l.lower() for l in s.get('alert_when_line_ending_is', [])]
 		Pref.auto_convert_line_endings_to             = s.get('auto_convert_line_endings_to', '')
 
 class StatusBarLineEndings(sublime_plugin.EventListener):
