@@ -5,6 +5,7 @@ def plugin_loaded():
 	s = sublime.load_settings('LineEndings.sublime-settings')
 	Pref = Pref()
 	Pref.load()
+    s.clear_on_change('reload')
 	s.add_on_change('reload', lambda:Pref.load())
 
 class Pref:
