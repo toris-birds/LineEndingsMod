@@ -75,7 +75,8 @@ No undo for line endings conversion.
 
 # Todo
 
-Use threads.
+* Use threads.
+* Command pallet
 
 # Contributors
 
