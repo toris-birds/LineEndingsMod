@@ -1,4 +1,4 @@
-***[Sublime Text 2+](http://www.sublimetext.com/) Package. 
+[Sublime Text 2+](http://www.sublimetext.com/) Package. 
 
 # Status
 
@@ -7,6 +7,8 @@ Just rewritten.
 # Description
 
 Original tree is  https://github.com/titoBouzout/LineEndings
+
+This branch is a customized version for Sublime Text 2+
 
 Provides line endings information and convert them for Sublime Text.
 Sublime Text: see http://www.sublimetext.com/
@@ -18,8 +20,6 @@ Sublime Text: see http://www.sublimetext.com/
 * Convert line endings for current view.
 	Use right click menu to convert line endings.
 	'Auto convert on save' is disabled for this version.
-
-This is a customized version for Sublime Text 2+
 
 
 # Notes
