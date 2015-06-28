@@ -21,6 +21,7 @@
 	// //  try right click and 'change all line endings ...'
 	// // It's safer, I think.
 	// // 
+	// // (This option is disabled internally for this branch.)
 	// // Auto convert line endings onsave to:
 	// // Set a line ending type.
 	// // Set "" for no convresion.
