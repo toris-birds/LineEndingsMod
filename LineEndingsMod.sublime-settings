@@ -1,0 +1,31 @@
+{
+	// Available line ending types are
+	// "Windows", "CRLF",
+	// "Unix", "LF",
+	// "Mac", "CR" 
+	// ("CRLF", "LF" and "Mac" is for LineEndingsMod)
+
+	// Show line ending on status bar
+	// Set true or false
+	// True and False are Not allowed here.
+	// Default: True
+	"show_line_endings_on_status_bar": true,
+
+	// Show an alert when the line ending is on the list.
+	// Set line ending types.
+	// Default: []
+	"alert_when_line_ending_is" : [],
+	//example: "alert_when_line_ending_is":["Windows","Unix","CR"]
+
+	// // Disable this option and
+	// //  try right click and 'change all line endings ...'
+	// // It's safer, I think.
+	// // 
+	// // Auto convert line endings onsave to:
+	// // Set a line ending type.
+	// // Set "" for no convresion.
+	// // Default: ""
+	"auto_convert_line_endings_to" : ""
+	// //example: "auto_convert_line_endings_to" : "Unix"
+
+}

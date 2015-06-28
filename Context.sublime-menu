@@ -1,0 +1,6 @@
+[
+    { "caption": "-", "id": "line_endings" },
+    { "command": "all_line_ends_to_crlf", "caption": "Change all line endings to CRLF (windows)" },
+    { "command": "all_line_ends_to_lf", "caption": "Change all line endings to LF (unix)" },
+    { "command": "all_line_ends_to_cr", "caption": "Change all line endings to CR (mac)" }
+]

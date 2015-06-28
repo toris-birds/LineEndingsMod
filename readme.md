@@ -1,20 +1,34 @@
-***[Sublime Text 3+](http://www.sublimetext.com/) Package. Install via an updated version of  [Package Control 2+](https://sublime.wbond.net/installation). Just **DON'T** install manually.
+***[Sublime Text 2+](http://www.sublimetext.com/) Package. 
+
+# Status
+
+Just rewritten.
 
 # Description
 
-Provides line endings and convert indentation shortcuts for Sublime Text. See: http://www.sublimetext.com/
+Original tree is  https://github.com/titoBouzout/LineEndings
 
-Allows to:
+Provides line endings information and convert them for Sublime Text.
+Sublime Text: see http://www.sublimetext.com/
 
-* Display an alert when the line_ending is not some you expect.
-* Convert indentation to spaces or tabs for all views on current window
-* Convert line endings for all views on current window
+# Functions
+
+* Display line endings on status bar.
+* Display an alert when loading a file whose line_ending is not some you expect.
+* Convert line endings for current view.
+	Use right click menu to convert line endings.
+	'Auto convert on save' is disabled for this version.
+
+This is a customized version for Sublime Text 2+
+
+
+# Notes
+
+No undo for line endings conversion.
 
 # Todo
 
-Show mixed line endings.
+Use threads.
 
 # Contributors
 
- * polyvertex
- * Nicholas Buse
