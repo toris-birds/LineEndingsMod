@@ -8,7 +8,7 @@
 	// Show line ending on status bar
 	// Set true or false
 	// True and False are Not allowed here.
-	// Default: True
+	// Default: true
 	"show_line_endings_on_status_bar": true,
 
 	// Show an alert when the line ending is on the list.
